@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Form</title>
+    <style>
+        body {
+            background-color: #F5F5F5; /* off-white background */
+            font-family: Arial, sans-serif;
+            color: black;
+        }
+        #attendanceForm {
+            text-align: center;
+            margin-top: 20%;
+        }
+        #name {
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            font-size: 20px;
+            width: 300px;
+            outline: none;
+        }
+        #submit {
+            padding: 20px 30px;
+            margin: 10px;
+            border-radius: 10px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #overlay {
+            text-align: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #celebration {
+            font-size: 50px;
+            margin-top: 20%;
+            animation: fadeIn 2s;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <form id="attendanceForm">
+        
+<label for="name" style="font-size: 58px;">بياناتك</label>
+
+        <div></div>
+        <input type="text" id="name" name="name" required>
+        <div></div>
+        <input type="submit" style="font-size: 30px;" value="تسجيل الحضور" id="submit">
+    </form>
+<div id="overlay">
+    <div id="celebration" style="font-size: 124px; color: red;">تم حضورك بنجاح</div>
+</div>
+    
+    <script>
+        document.getElementById("attendanceForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            var name = document.getElementById("name").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'a.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send("name=" + name); // Send the form data to a.php
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById("overlay").style.display = "block"; // Show the overlay
+                }
+            }
+        });
+    </script>
+</body>
+</html>
